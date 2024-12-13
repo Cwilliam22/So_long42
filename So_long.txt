@@ -1,0 +1,48 @@
+So_long :
+
+Gestion des ibliothèques :
+
+MLX (MiniLibX)
+
+Afficher une fenêtre 
+Charger un sprite et l'afficher
+Gérer les évenements clavier (entrées du joueur)
+
+
+
+Création de la map :
+
+Format du fichier ? 
+=>  .ber ou .txt    (différence ?)
+
+exemple :
+
+1111111
+1000001
+1011101
+100E001
+1111111
+
+1 = mur
+0 = vide/sol
+E = sortie/exit
+
+Lire le fichier avec la fonction get_next_line()
+Associer chaque caractère lu à un sprite 
+
+
+Gérer le joueur :
+
+Ajouter un personnage sur la map
+    => P = player ou J = joueur
+Associer chaque caractère lu à un sprite 
+Implémentation des touches (WASD)
+Condition pour ne pas traverser les murs
+
+
+Objets :
+Ajouter des coin à collecter
+    => C = coin
+Associer chaque caractère lu à un sprite 
+Gestion de la collision entre le coin et le player
+Condition de sortie du jeu après avoir récupérer tout les coins
