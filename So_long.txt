@@ -3,11 +3,9 @@ So_long :
 Gestion des ibliothèques :
 
 MLX (MiniLibX)
-
-Afficher une fenêtre 
-Charger un sprite et l'afficher
-Gérer les évenements clavier (entrées du joueur)
-
+- MLX est une petite bibliotheque graphique.
+- Elle est utile pour manipuler des fenetres, des images et des evenements clavier ou souris (entres du joueur).
+- Dans notre cas cette librairie va etre utile pour afficher une fenetre, les sprites et pour deplacer le joueur.  
 
 
 Création de la map :
@@ -46,3 +44,14 @@ Ajouter des coin à collecter
 Associer chaque caractère lu à un sprite 
 Gestion de la collision entre le coin et le player
 Condition de sortie du jeu après avoir récupérer tout les coins
+
+
+(Makefile)
+- Faire le Makefile comme d'habitude avec Make etc.
+- Ajouter un chemin vers le dossier MLX.
+	=> Dans mon code j'ai ajoute la variable MLX_WAY pour donner un chemin vers le dossier MLX.
+- Ajouter une variable afin de mettre les flags MLX 
+
+
+framework
+

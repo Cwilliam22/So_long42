@@ -15,8 +15,23 @@ NAME = So_long
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
+# Détection du système d'exploitation
+UNAME_S := $(shell uname -s)
+
+#Chemin vers MLX
+MLX_WAY = mlx
+
+# Choix des flags en fonction du système
+ifeq ($(UNAME_S),Darwin)
+    # macOS
+    MLX_FLAGS = -L$(MLX_WAY) -lmlx -framework OpenGL -framework AppKit
+else
+    # Linux
+    MLX_FLAGS = -L$(MLX_WAY) -lmlx -lXext -lX11
+endif
+
 #Fichiers
-SRC =	
+SRC =	SRC = main.c utils.c map.c
 
 #Objets correspondants
 OBJ = $(SRC:.c=.o)
@@ -29,7 +44,7 @@ all: $(NAME)
 
 #Compilation de la bibliothèque (pour construire libft.a)
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJ) $(MLX_FLAGS) -o $(NAME)
 
 #Compilation des fichiers .o à partir des .c
 #($<) => fichier source
