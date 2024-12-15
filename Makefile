@@ -6,75 +6,83 @@
 #    By: wcapt <wcapt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 21:34:29 by wcapt             #+#    #+#              #
-#    Updated: 2024/12/15 17:18:14 by wcapt            ###   ########.fr        #
+#    Updated: 2024/12/15 19:09:11 by wcapt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Variables
 NAME = so_long
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -DGL_SILENCE_DEPRECATION
 INCLUDES = -Imlx -Ilibft -I. -Isrc
 
-#Chemin vers librairie
-MLX = mlx//libmlx.a
-LIBFT = libft/libft.a
-PRINTF = printf/libftprintf.a
-
-#Fichiers
-SRC =	$(wildcard src/*.c)
-
-# Détection du système d'exploitation
+#Détection du système d'exploitation
 UNAME_S := $(shell uname -s)
 
-# Choix des flags en fonction du système d'exploitation
+#Chemins vers librairies
+#Choix du dos selon l'OS
 ifeq ($(UNAME_S),Darwin)
-    # macOS
-    MLX_FLAGS = -L$(MLX) -lmlx -framework OpenGL -framework AppKit
+	MLX_DIR = mlx_macOS
 else
-    # Linux
-    MLX_FLAGS = -L$(MLX) -lmlx -lXext -lX11
+	MLX_DIR = mlx_linux
 endif
+LIBFT_DIR = libft
+PRINTF_DIR = printf
 
-#Objets correspondants
+MLX = $(MLX_DIR)/libmlx.a
+LIBFT = $(LIBFT_DIR)/libft.a
+PRINTF = $(PRINTF_DIR)/libftprintf.a
+
+#Fichiers sources et objets
+SRC = $(wildcard src/*.c)
 OBJ = $(SRC:.c=.o)
+DEP = $(OBJ:.o=.d)
 
-#Commande pour créer la bibliothèque (ar = bi statique)
-AR = ar rcs
+#Choix des flags selon l'OS
+ifeq ($(UNAME_S),Darwin)
+    #MacOS
+    MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+else
+    #Linux
+    MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11
+endif
 
 #Règle par défaut
 all: $(NAME)
 
-#Compilation de la bibliothèque
+#Compilation de l'exécutable
 $(NAME): $(OBJ) $(PRINTF) $(MLX) $(LIBFT)
-	${CC} ${CFLAGS} ${CI} ${SRC} ${PRINTF} ${LIBFT} ${MLX} ${MLX_FLAGS} -o ${NAME}
+	$(CC) $(CFLAGS) $(OBJ) $(PRINTF) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
 
-#Make Makefile
+#Compilation des bibliothèques
 $(PRINTF):
-	make -C printf/
-
-$(MLX):
-	make -C mlx/
+	make -C $(PRINTF_DIR)
 
 $(LIBFT):
-	make -C libft/
+	make -C $(LIBFT_DIR)
 
-#Compilation des fichiers .o à partir des .c
-#($<) => fichier source
-#($@) => fichier cible
+$(MLX):
+	make -C $(MLX_DIR)
+
+#Compilation des fichiers objets
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -MMD -c $< -o $@
 
 #Nettoyage des fichiers objets
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(DEP)
+	make clean -C $(PRINTF_DIR)
+	make clean -C $(LIBFT_DIR)
+	make clean -C $(MLX_DIR)
 
-#Nettoyage complet : fichiers objets + bibliothèque
+#Nettoyage complet
 fclean: clean
 	rm -f $(NAME)
-	make clean -C printf
-	make clean -C libft
-	make clean -C mlx
+	make fclean -C $(PRINTF_DIR)
+	make fclean -C $(LIBFT_DIR)
+	make clean -C $(MLX_DIR)
 
 #Reconstruction complète
 re: fclean all
+
+
