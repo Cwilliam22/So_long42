@@ -1,0 +1,69 @@
+So_long :
+
+Gestion des ibliothèques :
+
+MLX (MiniLibX)
+- MLX est une petite bibliotheque graphique.
+- Elle est utile pour manipuler des fenetres, des images et des evenements clavier ou souris (entres du joueur).
+- Dans notre cas cette librairie va etre utile pour afficher une fenetre, les sprites et pour deplacer le joueur.  
+
+
+Création de la map :
+
+Format du fichier ? 
+=>  .ber ou .txt    (différence ?)
+
+exemple :
+
+1111111
+1000001
+1011101
+100E001
+1111111
+
+1 = mur
+0 = vide/sol
+E = sortie/exit
+
+Lire le fichier avec la fonction get_next_line()
+Associer chaque caractère lu à un sprite 
+
+
+Gérer le joueur :
+
+Ajouter un personnage sur la map
+    => P = player ou J = joueur
+Associer chaque caractère lu à un sprite 
+Implémentation des touches (WASD)
+Condition pour ne pas traverser les murs
+
+
+Objets :
+Ajouter des coin à collecter
+    => C = coin
+Associer chaque caractère lu à un sprite 
+Gestion de la collision entre le coin et le player
+Condition de sortie du jeu après avoir récupérer tout les coins
+
+
+(Makefile)
+- Faire le Makefile comme d'habitude avec Make etc.
+- Synthaxe : 
+    =>  '=' : La variable est évaluée à chaque utilisation (évaluation différée).
+    =>  ':=' : La variable est évaluée immédiatement au moment de sa définition (évaliuation immédiatement).
+- Ajouter un chemin vers le dossier MLX.
+	=> Dans mon code j'ai ajoute la variable MLX_WAY pour donner un chemin vers le dossier MLX.
+- La compilation de MLX est différente pour Linux et MacOS (flags différents)
+- Placer des conditions pour utiliser les bons flags selon le système d'exploitation
+    => Si MacOS utiliser tels flags et si Linux utiliser les autres 
+    => La synthaxe des conditions dans le Makefile change
+        => ifeq vérifie que le condition est vraie et ifneq vérifie 
+        => Les variables sont comparées à l'aide de CONDITION et VALEUR.
+            => ifeq (CONDITION, VALEUR)
+            => Darwin est le nom du noyau Unix utilisé par MacOS
+
+
+(Recursivité du Makefile à voir)
+
+framework
+
