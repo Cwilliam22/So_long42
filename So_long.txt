@@ -48,10 +48,22 @@ Condition de sortie du jeu après avoir récupérer tout les coins
 
 (Makefile)
 - Faire le Makefile comme d'habitude avec Make etc.
+- Synthaxe : 
+    =>  '=' : La variable est évaluée à chaque utilisation (évaluation différée).
+    =>  ':=' : La variable est évaluée immédiatement au moment de sa définition (évaliuation immédiatement).
 - Ajouter un chemin vers le dossier MLX.
 	=> Dans mon code j'ai ajoute la variable MLX_WAY pour donner un chemin vers le dossier MLX.
-- Ajouter une variable afin de mettre les flags MLX 
+- La compilation de MLX est différente pour Linux et MacOS (flags différents)
+- Placer des conditions pour utiliser les bons flags selon le système d'exploitation
+    => Si MacOS utiliser tels flags et si Linux utiliser les autres 
+    => La synthaxe des conditions dans le Makefile change
+        => ifeq vérifie que le condition est vraie et ifneq vérifie 
+        => Les variables sont comparées à l'aide de CONDITION et VALEUR.
+            => ifeq (CONDITION, VALEUR)
+            => Darwin est le nom du noyau Unix utilisé par MacOS
 
+
+(Recursivité du Makefile à voir)
 
 framework
 
