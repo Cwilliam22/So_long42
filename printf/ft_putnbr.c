@@ -20,7 +20,7 @@ ssize_t	ft_putnbr(int n)
 
 	iter = 0;
 	nbr = n;
-	if (n < -2147483648)
+	if (n == -2147483648)
 		return (11);
 	if (nbr < 0)
 	{
@@ -39,25 +39,15 @@ ssize_t	ft_putnbr(int n)
 	return (iter);
 }
 
-ssize_t	ft_put_u_nbr(unsigned long nbr)
+ssize_t	ft_put_u_nbr(unsigned int nbr)
 {
 	size_t	iter;
 
 	iter = 0;
-	if (nbr < 0)
-	{
-		iter += ft_putchar('-');
-		nbr = -nbr;
-	}
-	if (nbr > 9)
-	{
-		iter += ft_putnbr(nbr / 10);
-		iter += ft_putnbr(nbr % 10);
-	}
-	if (nbr < 10)
-	{
-		iter += ft_putchar(nbr + '0');
-	}
+	if (nbr >= 10)
+		iter += ft_put_u_nbr(nbr / 10);
+	ft_putchar((nbr % 10) + '0');
+	iter++;
 	return (iter);
 }
 

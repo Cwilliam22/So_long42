@@ -51,16 +51,23 @@ Condition de sortie du jeu après avoir récupérer tout les coins
 - Synthaxe : 
     =>  '=' : La variable est évaluée à chaque utilisation (évaluation différée).
     =>  ':=' : La variable est évaluée immédiatement au moment de sa définition (évaliuation immédiatement).
-- Ajouter un chemin vers le dossier MLX.
-	=> Dans mon code j'ai ajoute la variable MLX_WAY pour donner un chemin vers le dossier MLX.
+- Ajouter une variable qui va identifier le système d'exploitation de la machine via la commande shell [uname -a]
+- Donner avec les conditions deux chemin possible
+    => MacOS ou Linux
+- Dans chaqune des parties il y aura le chemin vers le dossier necessaire pour l'OS ainsi que les flags a utiliser
 - La compilation de MLX est différente pour Linux et MacOS (flags différents)
 - Placer des conditions pour utiliser les bons flags selon le système d'exploitation
-    => Si MacOS utiliser tels flags et si Linux utiliser les autres 
     => La synthaxe des conditions dans le Makefile change
         => ifeq vérifie que le condition est vraie et ifneq vérifie 
         => Les variables sont comparées à l'aide de CONDITION et VALEUR.
             => ifeq (CONDITION, VALEUR)
             => Darwin est le nom du noyau Unix utilisé par MacOS
+- Donner des variables avec le chemin necessaire pour aller jusqu'a la Libft et a printf
+- Pour chacun des trois dossiers ajouter (Libft, printf et MLX) faire le make
+    => Pour la MLX donner une commande chmod en plus pour lui autoriser les acces
+- Comme pour le make faire le clean et fclean des trois dossiers sous-jacents
+- Ajouter une action norminette controler la norme par la meme occasion
+
 
 
 (Recursivité du Makefile à voir)

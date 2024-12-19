@@ -23,6 +23,6 @@ ssize_t	ft_putchar(char c);
 ssize_t	ft_putnbr(int n);
 ssize_t	ft_adresse(void *adresse);
 ssize_t	ft_hexa_conv(unsigned int c, int index);
-ssize_t	ft_put_u_nbr(unsigned long n);
+ssize_t	ft_put_u_nbr(unsigned int n);
 
 #endif
