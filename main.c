@@ -1,32 +1,18 @@
 #include "so_long.h"
-#include <stdlib.h>
-#include <stdio.h>
 
-int main()
+int close_window(t_game *game)
 {
-    void    *mlx;        // Pointeur pour MLX
-    void    *win;        // Pointeur pour la fenêtre
-    int     width = 800; // Largeur de la fenêtre
-    int     height = 600; // Hauteur de la fenêtre
+    exit_game(game, "Fenêtre fermée proprement.");
+    return (0);
+}
 
-    // Initialisation de la MLX
-    mlx = mlx_init();
-    if (!mlx)
-    {
-        fprintf(stderr, "Erreur: Impossible d'initialiser la MLX.\n");
-        return (EXIT_FAILURE);
-    }
+int main(void)
+{
+    t_game game;
 
-    // Création d'une fenêtre
-    win = mlx_new_window(mlx, width, height, "Fenêtre So_long");
-    if (!win)
-    {
-        fprintf(stderr, "Erreur: Impossible de créer la fenêtre.\n");
-        return (EXIT_FAILURE);
-    }
+    init_game(&game, 800, 600);
+    mlx_hook(game.win, 17, 0, close_window, &game);
 
-    // Boucle MLX (pour garder la fenêtre ouverte)
-    mlx_loop(mlx);
-
+    mlx_loop(game.mlx);
     return (0);
 }

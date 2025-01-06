@@ -6,7 +6,7 @@
 #    By: wcapt <wcapt@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 21:34:29 by wcapt             #+#    #+#              #
-#    Updated: 2024/12/15 19:09:11 by wcapt            ###   ########.fr        #
+#    Updated: 2025/01/04 16:49:27 by wcapt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,14 @@ else
 	MLX_LIB = $(MLX_DIR)/libmlx_$(shell uname).a
 endif
 
+SRC_DIR = src
+INC_DIR = includes
 LIBFT_DIR = libft
 PRINTF_DIR = printf
 
 MLX = $(MLX_DIR)/libmlx.a
 LIBFT = $(LIBFT_DIR)/libft.a
-PRINTF = $(PRINTF_DIR)/libftprintf.a
+PRINTF = $(PRINTF_DIR)/printf.a
 
 #Fichiers sources et objets
 SRC = $(wildcard src/*.c)

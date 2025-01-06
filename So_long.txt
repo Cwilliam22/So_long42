@@ -68,9 +68,54 @@ Condition de sortie du jeu après avoir récupérer tout les coins
 - Comme pour le make faire le clean et fclean des trois dossiers sous-jacents
 - Ajouter une action norminette controler la norme par la meme occasion
 
+Comprendre la MinilibiX
+
+- Fait pour les étudiants
+- API
+- Based on the X-Window sytstem
+- fondement qui permet aux interfaces utilisateur graphiques (GUI) de fonctionner sur des systèmes d'exploitation de type UNIX.
+- Mediator between inputs and the visual outputs (on the screen)
+- translate the interactions into visible changes on the display
+- MLX more accessible for daily commuters (LibX more difficult to use)
+- To start use the fonction mlx_init()
+- To start a connection with the X-Window server
+- It prepare a structure 
+
+serveur : 
+- Programme ou système qui fournit des services à d'autres programmes
+- Dans ce projet il est beaucoup question de serveur graphique
+    => Permet de ne pas gérer directement la carte graphique, car c'est le serveur qui s'en charge
+    => Permet à plusieurs programmes de partager l'écran et les ressources graphiques sans conflit
+
+
+mlx_init()
+- Initalisation de la connexion graphique 
+- Cette fonction établit une connexion avec le serveur (serveur X11 sous Linux)
+- Sur macOS la connexion se fait grace a l'utilisation du framework graphique natif de macOS (Quartz)
+- Quartz est la base du système graphique de macOS, et il permet de gérer les fenêtres, les événements clavier/souris et le rendu des éléments graphiques directement.
+- Framework graphique natif : est un ensemble de bibliothèques et d'outils fournis par un système d'exploitation pour gérer l'affichage graphique.
+- Cette fonction retourne un contexte graphique.
+- Contexte graphique : est un ensemble de ressources et d'informations permettant à un programme de dessiner des images, d'interagir avec des fenêtres et de gérer les événements utilisateur
+- Un pointeur du type void *mlx est retourné 
+- Ce pointeur est important, car il représente le contexte graphique de notre jeu (instructions) 
+- Si cette fonction échoue, elle retourne NULL
+- Exemple de cas d'erreur : si le serveur graphique est inacessible
+- Dans ce projet cette fonction sera la première étape pour ensuite ouvrir une fenêtre pour notre jeu
+
+- mlx_new_window() ou mlx_put_image_to_window() pour afficher les textures et les sprites
+- mlx_hook() ou mlx_loop_hook() pour gérer les interactions utilisateur et la logique du jeu
+
+Questions :
+- 
+
 
 
 (Recursivité du Makefile à voir)
+
+
+
+
+
 
 framework
 
