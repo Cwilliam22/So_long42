@@ -119,3 +119,8 @@ Questions :
 
 framework
 
+
+map
+Pour savoir si une map est valide nous aurons besoin d'un map checkeur.
+Ce checkeur sera composé de divers fonction ayant chacune un rôle spécifique en temps que checkeur.
+

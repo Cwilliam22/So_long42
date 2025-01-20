@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 #Variables
-NAME = libftprintf.a
+NAME = printf.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 

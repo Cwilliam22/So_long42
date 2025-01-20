@@ -10,83 +10,61 @@
 #                                                                              #
 # **************************************************************************** #
 
-#Variables
 NAME = so_long
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
-INCLUDES = -Imlx -Ilibft -I. -Isrc
+LIBMLX = mlx/libmlx.a
+LIBFT = libft/libft.a
+PRINTF = printf/printf.a
 
-#Détection du système d'exploitation
-UNAME_S := $(shell uname -s)
+#//////////////////////////////////////////////////////////////////////////////
+#		ALL FILES
+#//////////////////////////////////////////////////////////////////////////////
 
-#Chemins vers librairies et choix des flags selon l'OS
-ifeq ($(UNAME_S),Darwin)
-	MLX_DIR = mlx_macOS
-	MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-	INCLUDES = -I/usr/include -Imlx
-	MLX_LIB = $(MLX_DIR)/libmlx_$(shell uname).a
-else
-	MLX_DIR = mlx_linux
-	MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11
-	INCLUDES = -Imlx
-	MLX_LIB = $(MLX_DIR)/libmlx_$(shell uname).a
-endif
+SRCS =	$(wildcard src/*.c)
 
-SRC_DIR = src
-INC_DIR = includes
-LIBFT_DIR = libft
-PRINTF_DIR = printf
+HEAD =	includes/so_long.h
 
-MLX = $(MLX_DIR)/libmlx.a
-LIBFT = $(LIBFT_DIR)/libft.a
-PRINTF = $(PRINTF_DIR)/printf.a
+#//////////////////////////////////////////////////////////////////////////////
+#		COMMAND SHORTCUTS
+#//////////////////////////////////////////////////////////////////////////////
 
-#Fichiers sources et objets
-SRC = $(wildcard src/*.c)
-OBJ = $(SRC:.c=.o)
-DEP = $(OBJ:.o=.d)
+CC = gcc -g -O0
+CF = -Wall -Werror -Wextra #-fsanitize=address -static-libasan
+SL = -Imlx -Imlx_linux -lXext -lX11 -lm -lz
+CI = -I ./src/
 
-#Règle par défaut
-all: $(NAME)
 
-#Compilation de l'exécutable
-$(NAME): $(OBJ) $(PRINTF) $(MLX) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(PRINTF) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
+AR = ar rcs
+RM = rm -rf
 
-#Compilation des bibliothèques
-$(PRINTF):
-	make -C $(PRINTF_DIR)
+#//////////////////////////////////////////////////////////////////////////////
+#		RULES
+#//////////////////////////////////////////////////////////////////////////////
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
+all: ${NAME}
 
-$(MLX):
-	chmod +x $(MLX_DIR)/configure
-	make -C $(MLX_DIR)
+# Binary creation
 
-#Compilation des fichiers objets
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -MMD -c $< -o $@
+${NAME}: ${SRCS} ${HEAD} ${PRINTF} ${LIBFT} ${LIBMLX}
+	${CC} ${CF} ${CI} ${SRCS} ${PRINTF} ${LIBFT} ${LIBMLX} ${SL} -o ${NAME}
 
-#Nettoyage des fichiers objets
+${PRINTF}:
+	make -C printf/
+
+${LIBMLX}:
+	make -C mlx/
+
+${LIBFT}:
+	make -C libft/
+
+# Mandatory rules
+
 clean:
-	rm -f $(OBJ) $(DEP)
-	make clean -C $(PRINTF_DIR)
-	make clean -C $(LIBFT_DIR)
-	make clean -C $(MLX_DIR)
+	${RM} mlx/*.o mlx/test/*.o src/*.o libft/*.o
 
-#Nettoyage complet
 fclean: clean
-	rm -f $(NAME)
-	make fclean -C $(PRINTF_DIR)
-	make fclean -C $(LIBFT_DIR)
-	make clean -C $(MLX_DIR)
+	${RM} ${NAME}
+	make clean -C mlx
+	make clean -C libft
+	make fclean -C printf
 
-#Norminette
-norme:
-	@norminette $(SRC)
-
-#Reconstruction complète
 re: fclean all
-
-
