@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcapt <wcapt@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:38:52 by wcapt             #+#    #+#             */
-/*   Updated: 2024/10/24 13:16:59 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/01/28 15:54:53 by williamcapt      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_printf(const char *format, ...)
 	return (len);
 }
 
-#include <stdio.h>
+/*#include <stdio.h>
 
 int	main(void)
 {
@@ -86,3 +86,4 @@ int	main(void)
 // Sauter le deuxième '%'
 // Nettoie va_list après l'utilisation (libère la mémoire allouée)
 // Return le nbr total de caractères 
+*/

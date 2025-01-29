@@ -1,113 +1,119 @@
 #include "../includes/so_long.h"
 
-
-size_t	ft_condition(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char	*ft_put_line(char *str)
-{
-	char	*dst;
-	size_t	i;
-	size_t	size;
-
-	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	size = i + 1;
-	if (str[i] == '\n')
-		size++;
-	dst = malloc(sizeof(char) * size);
-	if (!dst)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '\n')
-	{
-		dst[i] = str[i];
-		i++;
-	}
-	if (str[i] == '\n')
-		dst[i++] = '\n';
-	dst[i] = '\0';
-	return (dst);
-}
-
-char	*read_and_store(int fd, char **line)
-{
-	ssize_t	count;
-	char	*temp;
-	char	*buffer;
-
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	while (ft_condition(*line) == 0)
-	{
-		count = read(fd, buffer, BUFFER_SIZE);
-		if (count <= 0)
-		{
-			if (count == -1 || (*line && **line == '\0'))
-				return (free(*line), *line = NULL, free(buffer), NULL);
-			break ;
-		}
-		buffer[count] = '\0';
-		temp = *line;
-		*line = gnl_strjoin(*line, buffer);
-		free(temp);
-		if (!*line)
-			return (free(buffer), NULL);
-	}
-	return (free(buffer), *line);
-}
-
-int	check_null(int fd, char **line)
-{
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (1);
-	if (!*line)
-	{
-		*line = malloc(sizeof(char) * 1);
-		if (!*line)
-			return (1);
-		(*line)[0] = '\0';
-	}
-	return (0);
-}
-
 char	*get_next_line(int fd)
 {
-	static char	*line;
-	char		*dst;
-	char		*temp;
+	static char	*buffer;
+	char		*line;
 
-	if (check_null(fd, &line) || !read_and_store(fd, &line))
-		return (NULL);
-	dst = ft_put_line(line);
-	if (!dst)
-		return (NULL);
-	temp = line;
-	line = gnl_strchr(line, '\n');
-	if (line)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		line = gnl_strdup(line + 1);
-		free(temp);
-		if (!line)
+		if (buffer)
+		{
+			free(buffer);
+			buffer = NULL;
+		}
+		return (NULL);
+	}
+	buffer = read_file(fd, buffer);
+	if (buffer == NULL)
+		return (NULL);
+	line = ft_line(buffer);
+	if (line == NULL)
+	{
+		free(buffer);
+		buffer = NULL;
+		return (NULL);
+	}
+	buffer = ft_next(buffer);
+	return (line);
+}
+
+char	*read_file(int fd, char *res)
+{
+	char	*buffer;
+	int		byte_read;
+
+	if (!res)
+		res = ft_calloc(1, 1);
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!buffer)
+		return (NULL);
+	byte_read = 1;
+	while (byte_read > 0)
+	{
+		byte_read = read(fd, buffer, BUFFER_SIZE);
+		if (byte_read == -1)
+		{
+			free(buffer);
+			free(res);
 			return (NULL);
+		}
+		buffer[byte_read] = '\0';
+		res = ft_free(res, buffer);
+		if (ft_strchr(buffer, '\n'))
+			break ;
 	}
-	else
+	free(buffer);
+	return (res);
+}
+
+char	*ft_free(char *buffer, char *buf)
+{
+	char	*temp;
+
+	temp = ft_strjoin(buffer, buf);
+	free(buffer);
+	return (temp);
+}
+
+char	*ft_line(char *buffer)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	if (!buffer[i])
+		return (NULL);
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	line = ft_calloc(i + 2, sizeof(char));
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
 	{
-		free(temp);
-		line = NULL;
+		line[i] = buffer[i];
+		i++;
 	}
-	return (dst);
+	if (buffer[i] == '\n')
+		line[i++] = '\n';
+	return (line);
+}
+
+char	*ft_next(char *buffer)
+{
+	int		i;
+	int		j;
+	char	*new_buffer;
+
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	if (!buffer[i])
+	{
+		free(buffer);
+		return (NULL);
+	}
+	new_buffer = ft_calloc(ft_strlen(buffer) - i, sizeof(1));
+	if (!new_buffer)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	i++;
+	j = 0;
+	while (buffer[i])
+		new_buffer[j++] = buffer[i++];
+	free(buffer);
+	return (new_buffer);
 }

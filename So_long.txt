@@ -124,3 +124,45 @@ map
 Pour savoir si une map est valide nous aurons besoin d'un map checkeur.
 Ce checkeur sera composé de divers fonction ayant chacune un rôle spécifique en temps que checkeur.
 
+
+Here we go again :
+
+Pour commencer (remplir la grid)
+Puis il nous faudra vérifier plusieurs conditions concernant la map.
+Pour se faire nous aurons donc besoin de faire plusieurs fonction vérifiant ces condition.
+Chacune des ces fonctions devra renvoyer 1 si la condition est respecté est 0 si elle ne l'est pas.
+Ces fonctions dans la plus part des cas serviront à nous donner des caractèristiques (variables) de notre map.
+Il sera donc important de déclarer une structure qui récupèrera la variable important concernant notre map.
+
+(Conditions)
+- Contient-elle plus que 2 lignes et 2 colones ?
+    -> "count_line" sera dans mon cas la fonction censé compter le nombre de ligne dans ma map.
+        Cette fonction comptera le nombre de ligne grace à l'utilisation de "get_next_line".
+        Et assignera cette valeure à la variable 'height' de ma structure définie précédement.
+    -> Puis faire la même chose pour le nombre de colones en assigant ensuite cette variable à 'lenght' de ma structure.
+- Est-ce un rectangle (le carré est aussi considéré comme un rectangle) ?
+    -> La fonction "count_lenght" aura pour objectif de relever la longueur de la prmière ligne et de la comparer aux autres.
+    -> Si la longueur des autres lignes n'est pas égal à celle de la première, alors ce n'est pas un rectangle (return 0).
+    -> Cependant si toutes les lignes ont la même longueur, la fonction retourne 1 et donne la longueur à la variable 'lenght' (de lls struct). 
+- Y a t-il des murs pour contenir le joueur dans la map ?
+    -> La fonction "wall_check" sera la pour contrôler qu'il ait bien des murs là où c'est obligatoire.
+    -> Première ligne, dernière ligne, première colone et dernière colone sont des endroits où les murs sont obligatoires.
+- Y a t-il qu'une seule et unique sortie ?
+- Y a t-il des collectibles sur la map (au moins 1) ? 
+- Y a t-il une seule case playeur (P) pour commencer la partie ?
+    -> Ces 3 conditions je les vérifie avec une seule fonction, la fonction "ECP_check".
+    -> Déja je compte le nombre de fois que je trouve d'ECP (Exit, Coin et Player) que je donne à des variables dans ma structure.
+    -> Puis je mets une condition vérifiant qu'il y ait bien le bon nombre de chaque.
+- Les caractères dans le tableau sont-ils de caractères valides ?
+    -> La fonction "char_nvalid" va s'assurer qu'il n'y ait rien d'autre que les caractères E, C, P, 1 et 0.
+
+Le programme aura besoin d'une fonction vérifiant que toutes les fonctions conditions renvoient 1.
+Si une seule des fonctions renvoie 0 la fonction "check_all" retournera 0.
+
+La fonction "check_all" sera ensuite utiliser dans la fonction "look_at_map" pour checker les conditions pour que la map soit valide.
+
+---------------------------Attention revoir cette fonction car à mon sens il y a des trucs que l'ont pourrait supprimer
+
+Cette fonction "look_at_map" sera quant à elle appellé dans le main comme un booléen.
+Si pas OK printf un message d'erreur et free...
+
