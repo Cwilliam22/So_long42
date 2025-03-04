@@ -57,3 +57,30 @@ int count_length(t_game *game)
     game->length = len_line1; 
     return (1);
 }
+
+int	get_keyboard(int keycode, t_game *game)
+{
+	if (keycode == KEY_ESC)
+		get_exit(game);
+	if (keycode == KEY_W)
+		move_player(game, 0, -1);
+	else if (keycode == KEY_S)
+		move_player(game, 0, 1);
+	else if (keycode == KEY_A)
+		move_player(game, -1, 0);
+	else if (keycode == KEY_D)
+		move_player(game, 1, 0);
+	return (0);
+}
+
+int	get_exit(t_game *game)
+{
+	if (game->window)
+		mlx_destroy_window(game->mlx, game->window);
+	free_textures(game);
+	free_map(&game->grid);
+	ft_printf("Game closed. Goodbye!\n");
+	exit(0);
+	return (0);
+}
+

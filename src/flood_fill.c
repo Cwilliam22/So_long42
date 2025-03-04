@@ -14,15 +14,17 @@ int    fill_grid2(int fd, int nline, t_game *game)
     {
         line = get_next_line(fd);
         if (!line)
-            return (ft_printf("fill_grid22"), 0);
+            return (ft_printf("fill_grid22"), free_map(&game->grid2), 0);
         game->grid2[i] = ft_strdup(line);
+        free(line);
         if (!game->grid2[i])
-            return (ft_printf("fill_grid23"), 0);
+            return (ft_printf("fill_grid23"), free_map(&game->grid2), 0);
 // Si le malloc du ft_strdup échec, alors vérifié game->grid pour vérifié que ft_strdup a bien échoué
         len = ft_strlen(game->grid2[i]);
         if (len > 0 && game->grid2[i][len - 1] == '\n')
             game->grid2[i][len - 1] = '\0';
-        free(line);
+        else
+            game->grid2[i][len] = '\0';
         i++;
     }
     game->grid2[i] = NULL; 
@@ -57,7 +59,7 @@ int flood_check(t_game *game)
     flood_fill(game, game->player_x, game->player_y);
 	if (game->C != game->check_coin || game->check_exit == 0)
 	{
-		free_grid(game->grid2);
+		free_map(&game->grid2);
 		return (ft_printf("flood_check"), 0);
 	}
     return (1);
