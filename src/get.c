@@ -63,13 +63,25 @@ int	get_keyboard(int keycode, t_game *game)
 	if (keycode == KEY_ESC)
 		get_exit(game);
 	if (keycode == KEY_W)
-		move_player(game, 0, -1);
+    {
+		move_player1(game, 0, -1);
+        img_back(game);
+    }
 	else if (keycode == KEY_S)
-		move_player(game, 0, 1);
+    {
+		move_player1(game, 0, 1);
+        img_front(game);
+    }
 	else if (keycode == KEY_A)
-		move_player(game, -1, 0);
+    {
+		move_player1(game, -1, 0);
+        img_left(game);
+    }
 	else if (keycode == KEY_D)
-		move_player(game, 1, 0);
+    {
+		move_player1(game, 1, 0);
+        img_right(game);
+    }
 	return (0);
 }
 
@@ -79,7 +91,7 @@ int	get_exit(t_game *game)
 		mlx_destroy_window(game->mlx, game->window);
 	free_textures(game);
 	free_map(&game->grid);
-	ft_printf("Game closed. Goodbye!\n");
+	ft_printf("Game close !\n");
 	exit(0);
 	return (0);
 }

@@ -31,36 +31,71 @@ int    fill_grid2(int fd, int nline, t_game *game)
     return (1);
 }
 
+
+////////////////////////////////////////////////////////
+void print_grid2(t_game *game)
+{
+    int y = 0;
+
+    if (!game->grid2)
+    {
+        ft_printf("Error: grid2 is not allocated\n");
+        return;
+    }
+
+    ft_printf("\n--- GRID2 STATE ---\n");
+    while (y < game->height)
+    {
+        ft_printf("%s\n", game->grid2[y]);
+        y++;
+    }
+    ft_printf("--------------------\n");
+}
+////////////////////////////////////////////////////////
+
+
+
 void flood_fill(t_game *game, int x, int y)
 {
-    if ((game->grid2[x][y] = '0'))
-        game->grid2[x][y] = 'V';
-    if ((game->grid2[x][y] = 'P'))
-        game->grid2[x][y] = '0';
-    if ((game->grid2[x][y] = 'C'))
+    if (x <= 0 || y <= 0 || x >= game->length || y >= game->height)
+        return;
+    if (game->grid2[y][x] == '1' || game->grid2[y][x] == 'V')
+        return;
+    if (game->grid2[y][x] == '0' || game->grid2[y][x] == 'P')
+        game->grid2[y][x] = 'V';
+    if (game->grid2[y][x] == 'C')
     {
-        game->grid2[x][y] = '0';
+        game->grid2[y][x] = 'V';
         game->check_coin++;
     }
-    if ((game->grid2[y][x] == 'E'))
-		game->check_exit++;
-    if ((game->grid2[y][x] != '0'
-		&& game->grid2[y][x] != 'E' && game->grid2[y][x] != 'C'
-		&& game->grid2[y][x] != 'P') || x < 0 || y < 0)
-		return ;
+    if (game->grid2[y][x] == 'E')
+    {
+        game->grid2[y][x] = 'V';
+        game->check_exit++;
+        return;
+    }
     flood_fill(game, x + 1, y);
-    flood_fill(game, x - 1, y);    
+    flood_fill(game, x - 1, y);
     flood_fill(game, x, y + 1);
     flood_fill(game, x, y - 1);
 }
 
+
 int flood_check(t_game *game)
 {
+    get_xy(game);
     flood_fill(game, game->player_x, game->player_y);
-	if (game->C != game->check_coin || game->check_exit == 0)
+	if (game->C != game->check_coin || game->check_exit != 1)
 	{
 		free_map(&game->grid2);
-		return (ft_printf("flood_check"), 0);
+        printf("C : %d\n", game->C);
+        printf("check_coin : %d\n", game->check_coin);
+        printf("exit3 : %d\n", game->check_exit);
+        if (game->C != game->check_coin)
+            ft_printf("Error: Not all collectibles are accessible\n");
+        if (game->check_exit != 1)
+            ft_printf("Error: The exit is not accessible\n");
+		return (ft_printf("flood_check\n"), 0);
 	}
     return (1);
 }

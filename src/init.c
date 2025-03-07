@@ -10,38 +10,40 @@ void init_all(t_game *game)
 	game->player_x = 0;
 	game->player_y = 0;
 	game->player_coin = 0;
+	game->player_move = 0;
 	game->check_coin = 0;
 	game->check_exit = 0;
+	game->exit_x = 0;
+	game->exit_y = 0;
+	game->file = NULL;
+	game->sprites = NULL;
 	game->grid2 = NULL;
 	game->grid = NULL;
 	game->mlx = NULL;
 	game->window = NULL;
+	
 }
 
 int init_mlx(t_game *game)
 {
     game->mlx = mlx_init();
 	if (!game->mlx)
-	{
-		ft_printf("Error: Impossible to init mlx\n");
-		return (0);
-	}
+		return (ft_printf("Error: Impossible to init mlx\n"), 0);
     game->window = mlx_new_window(game->mlx, game->length * 64, game->height * 64 + 32, "so_long");
     if (!game->window)
     {
-        ft_printf("Error: Impossible to create window\n");
         mlx_destroy_display(game->mlx);
         free(game->mlx);
-        return (0);
+        return (ft_printf("Error: Impossible to create window\n"), 0);
     }
-    if (!load_textures(game))
+	if (!load_textures(game))
     {
-        ft_printf("Error: Failed to load textures\n");
         mlx_destroy_window(game->mlx, game->window);
         mlx_destroy_display(game->mlx);
         free(game->mlx);
-        return (0);
+        return (ft_printf("Error: Failed to load textures\n"), 0);
     }
+	new_image(game);
     return (1);
 }
 
@@ -49,15 +51,17 @@ int init_mlx(t_game *game)
 int	check_all(t_game *game, char *file)
 {
 	if (!map_check(file, game))
-		return (ft_printf("check_all1"), 0);
+		return (ft_printf("check_all1\n"), 0);
 	if (!wall_check(game))
-		return (ft_printf("check_all2"), 0);
+		return (ft_printf("check_all2\n"), 0);
+	if (!ECP_check(game))
+        return (ft_printf("check_all3\n"), 0);
+	if (!char_nvalid(game))
+		return (ft_printf("check_all4\n"), 0);	
+	if (!p_player(game))
+		return (ft_printf("check_all5\n"), 0);
 	if (!flood_check(game))
-		return (ft_printf("check_all3"), 0);
-    if (!ECP_check(game))
-        return (ft_printf("check_all4"), 0);
-    if (!char_nvalid(game))
-		return (ft_printf("check_all5"), 0);
+		return (ft_printf("check_all6\n"), 0);
 	return (1);
 }
 
@@ -84,7 +88,7 @@ int	load_textures(t_game *game)
 {
 	game->sprites = malloc(sizeof(t_sprites));
 	if (!game->sprites)
-		return (ft_printf("Error: malloc failed for sprites\n"), 0);
+		return (ft_printf("Error: malloc failed sprites\n"), 0);
 	game->sprites->p_face = mlx_xpm_file_to_image(game->mlx, "sprites/player_front.xpm",
 		&game->sprites->img_width, &game->sprites->img_height);
 	if (!game->sprites->p_face)

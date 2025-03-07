@@ -18,14 +18,6 @@ int	main(int argc, char **argv)
 		free_map(&game.grid); // Libère la mémoire si la map a été allouée
 		return (0);
 	}
-	// Chargement des textures
-	if (!load_textures(&game))
-	{
-		ft_printf("Error, Failed to load textures. \n");
-		free_map(&game.grid);
-		free_textures(&game);
-		return (0);
-	}
 	// Initialisation de MLX et création de la fenêtre
 	if (!init_mlx(&game))
 	{

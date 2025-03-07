@@ -14,7 +14,8 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdarg.h>
-# include <unistd.h>
+
+# include <stdio.h>
 
 typedef struct s_sprites
 {
@@ -41,8 +42,11 @@ typedef struct s_game
     int         C;
     int         P;
     int         player_coin;
+    int         player_move;
     int         check_coin;
     int         check_exit;
+    int         exit_x;
+    int         exit_y;
     int         player_x;
     int         player_y;
     void        *mlx;
@@ -98,7 +102,20 @@ void    free_textures(t_game *game);
 void    free_map(char ***grid);
 
 // game.c
-void move_player(t_game *game, int dx, int dy);
-void new_image(t_game *game);
+int     move_player1(t_game *game, int dx, int dy);
+int     move_player2(t_game *game, int new_x, int new_y);
+void    new_image(t_game *game);
 
+void    win(t_game *game);
+
+// img.c
+void    img_right(t_game *game);
+void    img_left(t_game *game);
+void    img_front(t_game *game);
+void    img_back(t_game *game);
+void    img_exit(t_game *game);
+
+// utils.c
+int     show_exit(t_game *game);
+int     p_player(t_game *game);
 #endif
