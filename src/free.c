@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/07 10:06:33 by wcapt             #+#    #+#             */
+/*   Updated: 2025/03/07 13:24:43 by wcapt            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
-void free_textures(t_game *game)
+void	free_textures(t_game *game)
 {
 	if (!game->sprites)
 		return ;
@@ -26,19 +38,50 @@ void free_textures(t_game *game)
 	game->sprites = NULL;
 }
 
-
-void free_map(char ***grid)
+void	free_map(char ***grid)
 {
-    int i = 0;
+	int	i;
 
-    if (!grid || !*grid)
-        return;
+	i = 0;
+	if (!grid || !*grid)
+		return ;
+	while ((*grid)[i])
+	{
+		free((*grid)[i]);
+		i++;
+	}
+	free(*grid);
+	*grid = NULL;
+}
 
-    while ((*grid)[i])
-    {
-        free((*grid)[i]);
-        i++;
-    }
-    free(*grid);
-    *grid = NULL;
+void	free_game(t_game *game)
+{
+	if (!game)
+		return ;
+	if (game->grid)
+		free_map(&(game->grid));
+	if (game->sprites)
+		free_textures(game);
+	if (game->window)
+		mlx_destroy_window(game->mlx, game->window);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	if (game->grid2)
+		free_grid2(game->grid2, game->height);
+	free(game);
+}
+
+void	free_grid2(char **grid2, int height)
+{
+	if (!grid2 || height <= 0)
+	{
+		free(grid2);
+		return ;
+	}
+	ft_printf("Free grid2[%d]\n", height - 1);
+	free(grid2[height - 1]);
+	free_grid2(grid2, height - 1);
 }

@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/07 10:24:20 by wcapt             #+#    #+#             */
+/*   Updated: 2025/03/07 13:12:46 by wcapt            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
-#define SO_LONG_H
+# define SO_LONG_H
 
 # define BUFFER_SIZE 1000
 # define KEY_W 119
@@ -15,8 +27,6 @@
 # include <unistd.h>
 # include <stdarg.h>
 
-# include <stdio.h>
-
 typedef struct s_sprites
 {
 	void	*p_face;
@@ -28,33 +38,32 @@ typedef struct s_sprites
 	void	*coin;
 	void	*exit;
 	void	*ennemy;
-    int     img_width;
-    int     img_height;
+	int		img_width;
+	int		img_height;
 }	t_sprites;
 
 typedef struct s_game
 {
-    char        **grid;
-    char        **grid2;
-    int         length;
-    int         height;
-    int         E;
-    int         C;
-    int         P;
-    int         player_coin;
-    int         player_move;
-    int         check_coin;
-    int         check_exit;
-    int         exit_x;
-    int         exit_y;
-    int         player_x;
-    int         player_y;
-    void        *mlx;
-    void        *window;
-    char        *file;
-    t_sprites   *sprites;
-    
-}   t_game;
+	char		**grid;
+	char		**grid2;
+	int			length;
+	int			height;
+	int			e;
+	int			c;
+	int			p;
+	int			player_coin;
+	int			player_move;
+	int			check_coin;
+	int			check_exit;
+	int			exit_x;
+	int			exit_y;
+	int			player_x;
+	int			player_y;
+	void		*mlx;
+	void		*window;
+	char		*file;
+	t_sprites	*sprites;
+}	t_game;
 
 // L'ordre des structures est-il important ??
 
@@ -71,51 +80,56 @@ char	*gnl_strchr(const char *str, int c);
 char	*gnl_strjoin(const char *s1, const char *s2);
 size_t	gnl_strlen(const char *str);
 
-// so_long.c
-int     map_check(char *file, t_game *game);
-int     fill_grid(int fd, int nline, t_game *game);
-int     wall_check(t_game *game);
-int     ECP_check(t_game *game);
-int     char_nvalid(t_game *game);
+// map_check1.c
+int		map_check(char *file, t_game *game);
+int		fill_grid(int fd, int nline, t_game *game);
+int		wall_check(t_game *game);
+int		ecp_check(t_game *game);
+int		char_nvalid(t_game *game);
 
 // init.c
-void    init_all(t_game *game);
-int     init_mlx(t_game *game);
-int     check_all(t_game *game, char *file);
-int     look_at_map(t_game *game, char *file);
-int     load_textures(t_game *game);
+void	init_all(t_game *game);
+int		init_mlx(t_game *game);
+int		check_all(t_game *game, char *file);
+int		look_at_map(t_game *game, char *file);
 
 // flood_fill.c
-int     fill_grid2(int fd, int nline, t_game *game);
-void    flood_fill(t_game *game, int x, int y);
-int     flood_check(t_game *game);
+int		fill_grid2(int fd, int nline, t_game *game);
+void	flood_fill(t_game *game, int x, int y);
+int		flood_check(t_game *game);
 
 // get.c
-void    get_xy(t_game *game);
-int     count_line(int fd, t_game *game);
-int     count_length(t_game *game);
-int     get_keyboard(int keycode, t_game *game);
-int     get_exit(t_game *game);
+void	get_xy(t_game *game);
+int		count_line(int fd, t_game *game);
+int		count_length(t_game *game);
+int		get_keyboard(int keycode, t_game *game);
+int		get_exit(t_game *game);
 
 // free.c
-void    free_textures(t_game *game);
-void    free_map(char ***grid);
+void	free_textures(t_game *game);
+void	free_map(char ***grid);
+void	free_game(t_game *game);
+void	free_grid2(char **grid2, int height);
 
 // game.c
-int     move_player1(t_game *game, int dx, int dy);
-int     move_player2(t_game *game, int new_x, int new_y);
-void    new_image(t_game *game);
-
-void    win(t_game *game);
+int		move_player1(t_game *game, int dx, int dy);
+int		move_player2(t_game *game, int new_x, int new_y);
+void	new_image(t_game *game);
+void	win(t_game *game);
 
 // img.c
-void    img_right(t_game *game);
-void    img_left(t_game *game);
-void    img_front(t_game *game);
-void    img_back(t_game *game);
-void    img_exit(t_game *game);
+void	img_right(t_game *game);
+void	img_left(t_game *game);
+void	img_front(t_game *game);
+void	img_back(t_game *game);
+void	img_exit(t_game *game);
 
 // utils.c
-int     show_exit(t_game *game);
-int     p_player(t_game *game);
+int		show_exit(t_game *game);
+int		p_player(t_game *game);
+
+// sprites.c
+int		load_sprites1(t_game *game);
+int		load_sprites2(t_game *game);
+int		load_sprites3(t_game *game);
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+         #
+#    By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 21:34:29 by wcapt             #+#    #+#              #
-#    Updated: 2025/03/04 00:09:28 by williamcapt      ###   ########.fr        #
+#    Updated: 2025/03/07 12:08:32 by wcapt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ HEAD =	includes/so_long.h
 #//////////////////////////////////////////////////////////////////////////////
 
 CC = gcc -g -O0
-CF = -Wall -Werror -Wextra -g #-fsanitize=address -static-libasan
+CF = -Wall -Werror -Wextra -g
 SL = -Imlx -Imlx_linux -lXext -lX11 -lm -lz
 CI = -I ./src/
 
