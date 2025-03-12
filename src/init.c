@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:12:54 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/12 19:06:47 by williamcapt      ###   ########.fr       */
+/*   Updated: 2025/03/12 20:16:45 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	init_mlx(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (ft_printf("Error: Impossible to init mlx\n"), 0);
-	game->window = mlx_new_window(game->mlx, game->length * 125 + 32,
-			game->height * 125 + 32, "so_long");
+	game->window = mlx_new_window(game->mlx, game->length * 125,
+			game->height * 125, "so_long");
 	if (!game->window)
 	{
 		mlx_destroy_display(game->mlx);

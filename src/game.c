@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:07:34 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/12 19:10:55 by williamcapt      ###   ########.fr       */
+/*   Updated: 2025/03/12 20:18:18 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ int	move_player1(t_game *game, int dx, int dy)
 	else
 		return (0);
 	game->grid[game->player_y][game->player_x] = '0';
+	mlx_put_image_to_window(game->mlx, game->window, game->sprites->floor,
+		game->player_x * 125, game->player_y * 125);
 	game->grid[new_y][new_x] = 'P';
 	game->player_x = new_x;
 	game->player_y = new_y;
-	new_image(game);
 	if (game->player_coin == game->c)
 		mlx_put_image_to_window(game->mlx, game->window, game->sprites->exit,
 			game->exit_x * 125, game->exit_y * 125);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+         #
+#    By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 21:34:29 by wcapt             #+#    #+#              #
-#    Updated: 2025/03/12 17:53:50 by williamcapt      ###   ########.fr        #
+#    Updated: 2025/03/12 23:48:19 by wcapt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,11 @@ PRINTF = printf/printf.a
 #//////////////////////////////////////////////////////////////////////////////
 #		ALL FILES
 #//////////////////////////////////////////////////////////////////////////////
-
-SRCS =	$(wildcard src/*.c)
+SRC_DIR = src
+SRCS =	$(SRC_DIR)/flood_fill.c $(SRC_DIR)/game.c $(SRC_DIR)/get_next_line.c \
+		$(SRC_DIR)/img.c $(SRC_DIR)/main.c $(SRC_DIR)/sprites.c \
+		$(SRC_DIR)/free.c $(SRC_DIR)/get.c $(SRC_DIR)/get_next_line_utils.c \
+		$(SRC_DIR)/init.c $(SRC_DIR)/map_check1.c $(SRC_DIR)/utils.c
 
 HEAD =	includes/so_long.h
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:24:20 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/12 19:14:46 by williamcapt      ###   ########.fr       */
+/*   Updated: 2025/03/12 23:41:39 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ typedef struct s_game
 	t_sprites	*sprites;
 }	t_game;
 
-// L'ordre des structures est-il important ??
-
 // get_next_line.c
 char	*get_next_line(int fd);
 char	*read_file(int fd, char *res);
@@ -79,6 +77,7 @@ void	*gnl_calloc(size_t count, size_t size);
 char	*gnl_strchr(const char *str, int c);
 char	*gnl_strjoin(const char *s1, const char *s2);
 size_t	gnl_strlen(const char *str);
+void	free_buffer(char	*buffer);
 
 // map_check1.c
 int		map_check(char *file, t_game *game);

@@ -6,7 +6,7 @@
 /*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:09:34 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/07 10:21:38 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/12 23:38:19 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*line;
 
+	if (fd == -42)
+	{
+		if (buffer)
+			free_buffer(buffer);
+		return (NULL);
+	}
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
 		if (buffer)
-		{
-			free(buffer);
-			buffer = NULL;
-		}
+			free_buffer(buffer);
 		return (NULL);
 	}
 	buffer = read_file(fd, buffer);
@@ -31,11 +34,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = ft_line(buffer);
 	if (line == NULL)
-	{
-		free(buffer);
-		buffer = NULL;
-		return (NULL);
-	}
+		return (free(buffer), buffer = NULL, NULL);
 	buffer = ft_next(buffer);
 	return (line);
 }
@@ -116,7 +115,7 @@ char	*ft_next(char *buffer)
 		free(buffer);
 		return (NULL);
 	}
-	new_buffer = ft_calloc(ft_strlen(buffer) - i, sizeof(1));
+	new_buffer = ft_calloc(ft_strlen(buffer) - i, sizeof(char));
 	if (!new_buffer)
 	{
 		free(buffer);

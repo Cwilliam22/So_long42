@@ -6,7 +6,7 @@
 /*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:09:21 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/07 10:09:24 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/12 23:41:47 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,10 @@ size_t	gnl_strlen(const char *str)
 	while (str[i] != 0)
 		i++;
 	return (i);
+}
+
+void	free_buffer(char	*buffer)
+{
+	free(buffer);
+	buffer = NULL;
 }

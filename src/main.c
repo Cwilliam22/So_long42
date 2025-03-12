@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:57:42 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/12 19:14:12 by williamcapt      ###   ########.fr       */
+/*   Updated: 2025/03/12 23:32:56 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,14 @@ int	main(int argc, char **argv)
 	if (!look_at_map(game, argv[1]))
 	{
 		ft_printf("Error : map invalid. Please use another map. \n");
-		free_map(&(game->grid));
-		return (free(game), 0);
+		free_game(game);
+		return (0);
 	}
 	if (!init_mlx(game))
 	{
 		ft_printf("Error : impossible to init game. \n");
-		free_map(&(game->grid));
-		free_textures(game);
-		return (free(game), 0);
+		free(game);
+		return (0);
 	}
 	mlx_hook(game->window, 2, 1L << 0, get_keyboard, game);
 	mlx_hook(game->window, 17, 0, get_exit, game);

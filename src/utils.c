@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:38:44 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/12 19:05:04 by williamcapt      ###   ########.fr       */
+/*   Updated: 2025/03/12 23:22:30 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,5 @@ int	fill_grid(int fd, int nline, t_game *game)
 			game->grid[i][len] = '\0';
 		i++;
 	}
-	return (game->grid[i] = NULL, 1);
+	return (line = get_next_line(fd), free (line), game->grid[i] = NULL, 1);
 }
