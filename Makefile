@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+         #
+#    By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 21:34:29 by wcapt             #+#    #+#              #
-#    Updated: 2025/03/07 12:08:32 by wcapt            ###   ########.fr        #
+#    Updated: 2025/03/12 17:53:50 by williamcapt      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ HEAD =	includes/so_long.h
 #//////////////////////////////////////////////////////////////////////////////
 
 CC = gcc -g -O0
-CF = -Wall -Werror -Wextra -g
+CF = -Wall -Werror -Wextra 
 SL = -Imlx -Imlx_linux -lXext -lX11 -lm -lz
 CI = -I ./src/
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:06:33 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/07 13:24:43 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/08 18:47:28 by williamcapt      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	free_grid2(char **grid2, int height)
 		free(grid2);
 		return ;
 	}
-	ft_printf("Free grid2[%d]\n", height - 1);
 	free(grid2[height - 1]);
 	free_grid2(grid2, height - 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:04:44 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/07 13:26:22 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/12 19:23:01 by williamcapt      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	flood_fill(t_game *game, int x, int y)
 	{
 		game->grid2[y][x] = 'V';
 		game->check_exit++;
-		return ;
 	}
 	flood_fill(game, x + 1, y);
 	flood_fill(game, x - 1, y);
@@ -79,26 +78,3 @@ int	flood_check(t_game *game)
 	}
 	return (1);
 }
-
-/*
-////////////////////////////////////////////////////////
-void print_grid2(t_game *game)
-{
-	int y = 0;
-
-	if (!game->grid2)
-	{
-		ft_printf("Error: grid2 is not allocated\n");
-		return;
-	}
-
-	ft_printf("\n--- GRID2 STATE ---\n");
-	while (y < game->height)
-	{
-		ft_printf("%s\n", game->grid2[y]);
-		y++;
-	}
-	ft_printf("--------------------\n");
-}
-////////////////////////////////////////////////////////
-*/

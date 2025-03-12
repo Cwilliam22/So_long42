@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:07:34 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/07 13:26:30 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/12 19:10:55 by williamcapt      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	move_player2(t_game *game, int new_x, int new_y)
 
 int	move_player1(t_game *game, int dx, int dy)
 {
-	int	new_x;
-	int	new_y;
+	int		new_x;
+	int		new_y;
 
 	new_x = game->player_x + dx;
 	new_y = game->player_y + dy;
@@ -55,7 +55,7 @@ int	move_player1(t_game *game, int dx, int dy)
 	new_image(game);
 	if (game->player_coin == game->c)
 		mlx_put_image_to_window(game->mlx, game->window, game->sprites->exit,
-			game->exit_x * 64, game->exit_y * 64);
+			game->exit_x * 125, game->exit_y * 125);
 	if (game->player_x == game->exit_x && game->player_y == game->exit_y
 		&& game->player_coin == game->c)
 		win(game);
@@ -76,13 +76,13 @@ void	new_image(t_game *game)
 		{
 			if (game->grid[y][x] == '1')
 				mlx_put_image_to_window(game->mlx, game->window,
-					game->sprites->wall, x * 64, y * 64);
+					game->sprites->wall, x * 125, y * 125);
 			else if (game->grid[y][x] == 'C')
 				mlx_put_image_to_window(game->mlx, game->window,
-					game->sprites->coin, x * 64, y * 64);
+					game->sprites->coin, x * 125, y * 125);
 			else if (game->grid[y][x] == '0' || game->grid[y][x] == 'E')
 				mlx_put_image_to_window(game->mlx, game->window,
-					game->sprites->floor, x * 64, y * 64);
+					game->sprites->floor, x * 125, y * 125);
 			x++;
 		}
 		y++;

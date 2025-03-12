@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:14:44 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/07 11:03:59 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/12 19:14:28 by williamcapt      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,3 @@ int	char_nvalid(t_game *game)
 	}
 	return (1);
 }
-
-// (l.61) Si le malloc du ft_strdup échec, alors vérifié game->grid
-// pour vérifié que ft_strdup a bien échoué

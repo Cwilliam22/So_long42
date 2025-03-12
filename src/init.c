@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:12:54 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/07 12:24:16 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/12 19:06:47 by williamcapt      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-
-#include <errno.h>
-#include <string.h>
-#include <stdio.h>
 
 void	init_all(t_game *game)
 {
@@ -44,8 +40,8 @@ int	init_mlx(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (ft_printf("Error: Impossible to init mlx\n"), 0);
-	game->window = mlx_new_window(game->mlx, game->length * 64,
-			game->height * 64 + 32, "so_long");
+	game->window = mlx_new_window(game->mlx, game->length * 125 + 32,
+			game->height * 125 + 32, "so_long");
 	if (!game->window)
 	{
 		mlx_destroy_display(game->mlx);
@@ -57,7 +53,7 @@ int	init_mlx(t_game *game)
 		mlx_destroy_window(game->mlx, game->window);
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
-		return (ft_printf("Error: Failed to load textures\n"), 0);
+		return (ft_printf("Error: Failed to load sprites\n"), 0);
 	}
 	new_image(game);
 	return (1);

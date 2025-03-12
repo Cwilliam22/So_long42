@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:57:42 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/07 13:25:59 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/12 19:14:12 by williamcapt      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,3 @@ int	main(int argc, char **argv)
 	mlx_loop(game->mlx);
 	return (free_game(game), 0);
 }
-
-// Initialisation de la structure à zéro
-// Vérification de la map
-// Libère la mémoire si la map a été allouée
-// Initialisation de MLX et création de la fenêtre
-// Ajout des hooks pour gérer les touches et la fermeture du jeu
-// Lancement de la boucle MLX
-// Libération de la mémoire (normalement jamais atteint)
