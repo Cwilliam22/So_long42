@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*   By: wcapt <wcapt@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:07:34 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/12 20:18:18 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/19 14:42:29 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,24 @@ int	move_player2(t_game *game, int new_x, int new_y)
 	return (1);
 }
 
+void	put_score(t_game *game)
+{
+	char	*move_count;
+
+	move_count = ft_itoa(game->player_move);
+	mlx_string_put(game->mlx, game->window, game->length * 125 + 5,
+		40, 0x000000, move_count);
+	free(move_count);
+	game->player_move++;
+	move_count = ft_itoa(game->player_move);
+	mlx_string_put(game->mlx, game->window, game->length * 125 + 5,
+		20, 0xFFFFFF, "Moves:");
+	mlx_string_put(game->mlx, game->window, game->length * 125 + 5,
+		40, 0xFFFFFF, move_count);
+	free(move_count);
+	ft_printf("Step : %d\n", game->player_move);
+}
+
 int	move_player1(t_game *game, int dx, int dy)
 {
 	int		new_x;
@@ -42,12 +60,11 @@ int	move_player1(t_game *game, int dx, int dy)
 	new_x = game->player_x + dx;
 	new_y = game->player_y + dy;
 	if (move_player2(game, new_x, new_y))
-	{
-		game->player_move++;
-		ft_printf("Step : %d\n", game->player_move);
-	}
+		put_score(game);
 	else
 		return (0);
+	if (game->grid[new_y][new_x] == 'B')
+		lose(game);
 	game->grid[game->player_y][game->player_x] = '0';
 	mlx_put_image_to_window(game->mlx, game->window, game->sprites->floor,
 		game->player_x * 125, game->player_y * 125);
@@ -75,15 +92,7 @@ void	new_image(t_game *game)
 		x = 0;
 		while (x < game->length)
 		{
-			if (game->grid[y][x] == '1')
-				mlx_put_image_to_window(game->mlx, game->window,
-					game->sprites->wall, x * 125, y * 125);
-			else if (game->grid[y][x] == 'C')
-				mlx_put_image_to_window(game->mlx, game->window,
-					game->sprites->coin, x * 125, y * 125);
-			else if (game->grid[y][x] == '0' || game->grid[y][x] == 'E')
-				mlx_put_image_to_window(game->mlx, game->window,
-					game->sprites->floor, x * 125, y * 125);
+			line_to_long(game, x, y);
 			x++;
 		}
 		y++;

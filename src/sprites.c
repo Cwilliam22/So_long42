@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*   By: wcapt <wcapt@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:41:58 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/07 10:55:35 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/19 14:38:07 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ int	load_sprites3(t_game *game)
 	if (!game->sprites->exit)
 		return (free_textures(game),
 			ft_printf("Error: Failed to load exit\n"), 0);
-	game->sprites->ennemy = mlx_xpm_file_to_image(game->mlx, "sprites/lava.xpm",
-			&game->sprites->img_width, &game->sprites->img_height);
-	if (!game->sprites->ennemy)
+	game->sprites->enemies = mlx_xpm_file_to_image(game->mlx,
+			"sprites/enemies.xpm", &game->sprites->img_width,
+			&game->sprites->img_height);
+	if (!game->sprites->enemies)
 		return (free_textures(game),
-			ft_printf("Error: Failed to load ennemy\n"), 0);
+			ft_printf("Error: Failed to load enemies\n"), 0);
 	return (1);
 }
 

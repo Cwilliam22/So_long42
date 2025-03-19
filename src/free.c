@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wcapt <wcapt@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:06:33 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/08 18:47:28 by williamcapt      ###   ########.fr       */
+/*   Updated: 2025/03/19 12:56:49 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	free_textures(t_game *game)
 		mlx_destroy_image(game->mlx, game->sprites->coin);
 	if (game->sprites->exit)
 		mlx_destroy_image(game->mlx, game->sprites->exit);
-	if (game->sprites->ennemy)
-		mlx_destroy_image(game->mlx, game->sprites->ennemy);
+	if (game->sprites->enemies)
+		mlx_destroy_image(game->mlx, game->sprites->enemies);
 	free(game->sprites);
 	game->sprites = NULL;
 }

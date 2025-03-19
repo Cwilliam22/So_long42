@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*   By: wcapt <wcapt@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:14:44 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/12 23:40:40 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/19 13:11:57 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	char_nvalid(t_game *game)
 				game->grid[i][j] != 'C' &&
 				game->grid[i][j] != 'P' &&
 				game->grid[i][j] != '1' &&
+				game->grid[i][j] != 'B' &&
 				game->grid[i][j] != '0')
 				return (ft_printf("Error : char_nvalid fails"),
 					free_map(&game->grid2), 0);

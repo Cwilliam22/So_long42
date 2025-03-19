@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wcapt < wcapt@student.42lausanne.ch >      +#+  +:+       +#+        */
+/*   By: wcapt <wcapt@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:24:20 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/12 23:41:39 by wcapt            ###   ########.fr       */
+/*   Updated: 2025/03/19 14:42:43 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_sprites
 	void	*floor;
 	void	*coin;
 	void	*exit;
-	void	*ennemy;
+	void	*enemies;
 	int		img_width;
 	int		img_height;
 }	t_sprites;
@@ -93,6 +93,7 @@ int		check_all(t_game *game, char *file);
 int		look_at_map(t_game *game, char *file);
 
 // flood_fill.c
+void	enemies_to_one(t_game *game);
 int		fill_grid2(int fd, int nline, t_game *game);
 void	flood_fill(t_game *game, int x, int y);
 int		flood_check(t_game *game);
@@ -112,6 +113,7 @@ void	free_grid2(char **grid2, int height);
 
 // game.c
 int		move_player1(t_game *game, int dx, int dy);
+void	put_score(t_game *game);
 int		move_player2(t_game *game, int new_x, int new_y);
 void	new_image(t_game *game);
 void	win(t_game *game);
@@ -126,6 +128,8 @@ void	img_exit(t_game *game);
 // utils.c
 int		show_exit(t_game *game);
 int		p_player(t_game *game);
+void	lose(t_game *game);
+void	line_to_long(t_game *game, int x, int y);
 
 // sprites.c
 int		load_sprites1(t_game *game);

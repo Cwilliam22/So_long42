@@ -10,64 +10,66 @@
 #                                                                              #
 # **************************************************************************** #
 
+# Nom de l'exécutable
 NAME = so_long
-LIBMLX = mlx/libmlx.a
-LIBFT = libft/libft.a
-PRINTF = printf/printf.a
 
-#//////////////////////////////////////////////////////////////////////////////
-#		ALL FILES
-#//////////////////////////////////////////////////////////////////////////////
-SRC_DIR = src
-SRCS =	$(SRC_DIR)/flood_fill.c $(SRC_DIR)/game.c $(SRC_DIR)/get_next_line.c \
-		$(SRC_DIR)/img.c $(SRC_DIR)/main.c $(SRC_DIR)/sprites.c \
-		$(SRC_DIR)/free.c $(SRC_DIR)/get.c $(SRC_DIR)/get_next_line_utils.c \
-		$(SRC_DIR)/init.c $(SRC_DIR)/map_check1.c $(SRC_DIR)/utils.c
-
-HEAD =	includes/so_long.h
-
-#//////////////////////////////////////////////////////////////////////////////
-#		COMMAND SHORTCUTS
-#//////////////////////////////////////////////////////////////////////////////
-
-CC = gcc -g -O0
-CF = -Wall -Werror -Wextra 
+# Compilateur et flags
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g -O0
 SL = -Imlx -Imlx_linux -lXext -lX11 -lm -lz
 CI = -I ./src/
 
+# Dossiers
+SRC_DIR = src
+LIBFT_DIR = libft
+PRINTF_DIR = printf
+MLX_DIR = mlx
 
-AR = ar rcs
-RM = rm -rf
+# Bibliothèques
+LIBFT = $(LIBFT_DIR)/libft.a
+PRINTF = $(PRINTF_DIR)/printf.a
+LIBMLX = $(MLX_DIR)/libmlx.a
 
-#//////////////////////////////////////////////////////////////////////////////
-#		RULES
-#//////////////////////////////////////////////////////////////////////////////
+# Fichiers sources
+SRCS =  $(SRC_DIR)/flood_fill.c $(SRC_DIR)/game.c $(SRC_DIR)/get_next_line.c \
+        $(SRC_DIR)/img.c $(SRC_DIR)/main.c $(SRC_DIR)/sprites.c \
+        $(SRC_DIR)/free.c $(SRC_DIR)/get.c $(SRC_DIR)/get_next_line_utils.c \
+        $(SRC_DIR)/init.c $(SRC_DIR)/map_check1.c $(SRC_DIR)/utils.c
 
-all: ${NAME}
+# Fichiers objets
+OBJ = $(SRCS:.c=.o)
 
-# Binary creation
+# Dépendances
+all: $(LIBFT) $(PRINTF) $(LIBMLX) $(NAME)
 
-${NAME}: ${SRCS} ${HEAD} ${PRINTF} ${LIBFT} ${LIBMLX}
-	${CC} ${CF} ${CI} ${SRCS} ${PRINTF} ${LIBFT} ${LIBMLX} ${SL} -o ${NAME}
+$(LIBFT):
+	@$(MAKE) -C $(LIBFT_DIR)
 
-${PRINTF}:
-	make -C printf/
+$(PRINTF):
+	@$(MAKE) -C $(PRINTF_DIR)
 
-${LIBMLX}:
-	make -C mlx/
+$(LIBMLX):
+	@$(MAKE) -C $(MLX_DIR)
 
-${LIBFT}:
-	make -C libft/
+$(NAME): $(OBJ) $(LIBFT) $(PRINTF) $(LIBMLX)
+	@$(CC) $(CFLAGS) $(CI) $(OBJ) $(LIBFT) $(PRINTF) $(LIBMLX) $(SL) -o $(NAME)
+	@echo "\033[32m So_long compiled successfully!\033[0m"
 
-# Mandatory rules
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	${RM} mlx/*.o mlx/test/*.o src/*.o libft/*.o
+	@rm -f $(OBJ)
+	@$(MAKE) -C $(LIBFT_DIR) clean
+	@$(MAKE) -C $(PRINTF_DIR) clean
+	@$(MAKE) -C $(MLX_DIR) clean
+	@echo "\033[33m Object files removed!\033[0m"
 
 fclean: clean
-	${RM} ${NAME}
-	make clean -C mlx
-	make clean -C libft
-	make fclean -C printf
+	@rm -f $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(PRINTF_DIR) fclean
+	@$(MAKE) -C $(MLX_DIR) clean
+	@echo "\033[31m Executable removed!\033[0m"
 
 re: fclean all

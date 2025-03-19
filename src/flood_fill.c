@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: williamcapt <williamcapt@student.42.fr>    +#+  +:+       +#+        */
+/*   By: wcapt <wcapt@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:04:44 by wcapt             #+#    #+#             */
-/*   Updated: 2025/03/12 19:23:01 by williamcapt      ###   ########.fr       */
+/*   Updated: 2025/03/19 14:38:33 by wcapt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+void	enemies_to_one(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (game->grid2[i])
+	{
+		j = 0;
+		while (game->grid2[i][j])
+		{
+			if (game->grid2[i][j] == 'B')
+				game->grid2[i][j] = '1';
+			j++;
+		}
+		i++;
+	}
+}
 
 int	fill_grid2(int fd, int nline, t_game *game)
 {
@@ -65,6 +84,7 @@ void	flood_fill(t_game *game, int x, int y)
 
 int	flood_check(t_game *game)
 {
+	enemies_to_one(game);
 	get_xy(game);
 	flood_fill(game, game->player_x, game->player_y);
 	if (game->c != game->check_coin || game->check_exit != 1)
